@@ -375,14 +375,14 @@ body {
 }
 
 h1 {
-    font-size: 2.5rem;
+    font-size: clamp(2rem, 4vw, 3.5rem);
     text-shadow: 
         0 0 10px #9b4dff,
         0 0 20px #9b4dff,
         0 0 30px #ff7b00,
         2px 2px 5px rgba(0,0,0,0.8);
-    letter-spacing: 3px;
-    margin-bottom: 15px;
+    letter-spacing: clamp(2px, 0.5vw, 4px);
+    margin-bottom: clamp(12px, 2vw, 20px);
     animation: pulse 2s ease-in-out infinite;
 }
 
@@ -392,37 +392,46 @@ h1 {
 }
 
 .scoreboard {
-    font-size: 1.8rem;
-    font-weight: bold;
-    background: rgba(0, 0, 0, 0.7);
-    padding: 15px 40px;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 800;
+    background: rgba(0, 0, 0, 0.85);
+    padding: clamp(15px, 2.5vw, 25px) clamp(30px, 5vw, 60px);
     border-radius: 15px;
-    border: 3px solid #9b4dff;
+    border: 4px solid #9b4dff;
     box-shadow: 
-        0 0 20px rgba(155, 77, 255, 0.5),
-        inset 0 0 20px rgba(155, 77, 255, 0.2);
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        0 0 30px rgba(155, 77, 255, 0.7),
+        inset 0 0 20px rgba(155, 77, 255, 0.3);
+    text-shadow: 
+        0 0 15px currentColor,
+        2px 2px 6px rgba(0,0,0,0.9);
     display: flex;
-    gap: 40px;
+    gap: clamp(30px, 5vw, 60px);
     align-items: center;
     justify-content: center;
 }
 
 .team-score.orange {
     color: #ff7b00;
-    text-shadow: 0 0 10px #ff7b00;
+    text-shadow: 
+        0 0 15px #ff7b00,
+        0 0 25px #ff7b00;
 }
 
 .team-score.purple {
     color: #9b4dff;
-    text-shadow: 0 0 10px #9b4dff;
+    text-shadow: 
+        0 0 15px #9b4dff,
+        0 0 25px #9b4dff;
 }
 
 .timer {
-    font-size: 1.5rem;
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    font-weight: 800;
     color: #fff;
-    text-shadow: 0 0 10px #9b4dff;
-    min-width: 80px;
+    text-shadow: 
+        0 0 15px #9b4dff,
+        0 0 25px rgba(155, 77, 255, 0.8);
+    min-width: clamp(80px, 15vw, 150px);
 }
 
 .timer.overtime {
@@ -452,9 +461,18 @@ h1 {
 
 .round-status {
     margin-top: 10px;
-    font-size: 1.2rem;
-    color: #9b4dff;
-    text-shadow: 0 0 10px #9b4dff;
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    font-weight: 800;
+    color: #00ff88;
+    text-shadow: 
+        0 0 15px #00ff88,
+        0 0 25px rgba(0, 255, 136, 0.8),
+        2px 2px 4px rgba(0, 0, 0, 0.9);
+    background: rgba(0, 255, 136, 0.1);
+    padding: 8px 20px;
+    border-radius: 10px;
+    border: 2px solid #00ff88;
+    display: inline-block;
 }
 
 .connection-status {
@@ -477,22 +495,23 @@ h1 {
 /* Total Wins Scoreboard */
 .total-wins {
     display: flex;
-    gap: 20px;
+    gap: clamp(15px, 3vw, 30px);
     align-items: center;
-    background: rgba(0, 0, 0, 0.8);
-    padding: 10px 30px;
-    border-radius: 10px;
-    border: 2px solid rgba(155, 77, 255, 0.5);
-    font-size: 1rem;
-    font-weight: bold;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
-    margin-top: 15px; /* Add spacing from canvas */
+    background: rgba(0, 0, 0, 0.9);
+    padding: clamp(12px, 2vw, 20px) clamp(25px, 4vw, 50px);
+    border-radius: 12px;
+    border: 3px solid rgba(155, 77, 255, 0.7);
+    font-size: clamp(1.3rem, 2.5vw, 2rem);
+    font-weight: 800;
+    box-shadow: 0 0 25px rgba(155, 77, 255, 0.6);
+    margin-top: clamp(12px, 2vw, 20px);
 }
 
 .total-wins .win-count {
     text-shadow: 
-        0 0 8px currentColor,
-        2px 2px 3px rgba(0, 0, 0, 0.9);
+        0 0 12px currentColor,
+        0 0 20px currentColor,
+        2px 2px 4px rgba(0, 0, 0, 0.9);
 }
 
 .total-wins .win-count.orange {
@@ -651,18 +670,45 @@ kbd {
 }
 
 @media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .game-container {
+        padding: 10px;
+        gap: 10px;
+    }
+    
     h1 {
-        font-size: 1.8rem;
+        font-size: clamp(1.5rem, 5vw, 2.5rem);
+        margin-bottom: 10px;
     }
     
     .scoreboard {
-        font-size: 1.3rem;
-        padding: 10px 20px;
-        gap: 20px;
+        font-size: clamp(1.5rem, 4vw, 2.2rem);
+        padding: 12px 20px;
+        gap: clamp(15px, 4vw, 30px);
     }
     
     .timer {
-        font-size: 1.2rem;
+        font-size: clamp(1.3rem, 3.5vw, 2rem);
+        min-width: clamp(60px, 12vw, 100px);
+    }
+    
+    .round-status {
+        font-size: clamp(1.2rem, 3vw, 1.8rem);
+        padding: 6px 15px;
+    }
+    
+    .total-wins {
+        font-size: clamp(1.1rem, 3vw, 1.8rem);
+        padding: 10px 20px;
+        gap: 15px;
+        margin-top: 10px;
+    }
+    
+    .canvas-wrapper {
+        margin: 8px 0;
     }
     
     .control-grid {
@@ -670,12 +716,12 @@ kbd {
     }
     
     .event-banner {
-        font-size: 2rem;
+        font-size: clamp(1.8rem, 4vw, 2.5rem);
         padding: 20px 40px;
     }
     
     .mega-banner {
-        font-size: 2.5rem;
+        font-size: clamp(2.2rem, 5vw, 3.2rem);
         padding: 30px 50px;
     }
 }
