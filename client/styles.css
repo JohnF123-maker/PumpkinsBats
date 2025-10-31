@@ -293,6 +293,7 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 15px;
+    position: relative; /* Make this the positioning parent for overlays */
 }
 
 .header {
@@ -402,11 +403,6 @@ h1 {
 
 /* Total Wins Scoreboard */
 .total-wins {
-    position: fixed;
-    bottom: 50px;
-    /* Center to game canvas: body padding + sidebar + gap + half canvas */
-    left: calc(20px + 280px + 20px + 640px);
-    transform: translateX(-50%);
     display: flex;
     gap: 20px;
     align-items: center;
@@ -417,7 +413,7 @@ h1 {
     font-size: 1rem;
     font-weight: bold;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
-    z-index: 100;
+    margin-top: 15px; /* Add spacing from canvas */
 }
 
 .total-wins .win-count {
@@ -506,10 +502,9 @@ kbd {
 }
 
 .event-banner {
-    position: fixed;
+    position: absolute;
     top: 50%;
-    /* Center to game canvas: body padding (20px) + sidebar (280px) + gap (20px) + half canvas (640px) = 960px from left */
-    left: calc(20px + 280px + 20px + 640px);
+    left: 50%;
     transform: translate(-50%, -50%);
     font-size: 2.5rem;
     font-weight: bold;
@@ -533,10 +528,9 @@ kbd {
 }
 
 .mega-banner {
-    position: fixed;
+    position: absolute;
     top: 20%;
-    /* Center to game canvas: body padding + sidebar + gap + half canvas */
-    left: calc(20px + 280px + 20px + 640px);
+    left: 50%;
     transform: translate(-50%, -50%);
     font-size: 3.5rem;
     font-weight: bold;
