@@ -13,13 +13,12 @@ body {
     font-family: 'Courier New', monospace;
     background: linear-gradient(180deg, #050008 0%, #2a004b 60%, #1a0b00 100%);
     color: #fff;
-    overflow-x: hidden;
-    overflow-y: auto;
+    overflow: hidden; /* No scrolling - fullscreen fit */
     display: flex;
     justify-content: center;
-    align-items: flex-start;
-    min-height: 100vh;
-    padding: 20px;
+    align-items: center;
+    height: 100vh;
+    padding: clamp(10px, 1.5vw, 20px);
 }
 
 /* Setup Screen */
@@ -135,11 +134,12 @@ body {
 .game-container {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
-    gap: 20px;
+    align-items: center;
+    gap: clamp(15px, 2vw, 25px);
     max-width: 1800px;
     width: 100%;
-    padding: 20px;
+    max-height: 100vh;
+    padding: 0;
 }
 
 /* Side Panel - Enhanced for Livestream Visibility */
@@ -148,45 +148,24 @@ body {
     background: rgba(0, 0, 0, 0.85);
     border: 3px solid #9b4dff;
     border-radius: 15px;
-    padding: clamp(15px, 2vw, 25px);
+    padding: clamp(12px, 1.5vw, 20px);
     box-shadow: 0 0 40px rgba(155, 77, 255, 0.6);
     flex-shrink: 0;
-    max-height: calc(100vh - 40px);
-    overflow-y: auto;
-    overflow-x: hidden;
-}
-
-/* Custom scrollbar for sidebar */
-.side-panel::-webkit-scrollbar {
-    width: 8px;
-}
-
-.side-panel::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 10px;
-}
-
-.side-panel::-webkit-scrollbar-thumb {
-    background: rgba(155, 77, 255, 0.6);
-    border-radius: 10px;
-}
-
-.side-panel::-webkit-scrollbar-thumb:hover {
-    background: rgba(155, 77, 255, 0.9);
+    overflow: hidden; /* No scrollbar - all content fits */
 }
 
 .emojis-header {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: clamp(10px, 1.5vw, 15px);
-    margin-bottom: clamp(12px, 2vw, 18px);
-    font-size: clamp(2rem, 3.5vw, 3.2rem);
+    gap: clamp(8px, 1.2vw, 12px);
+    margin-bottom: clamp(8px, 1.5vw, 12px);
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
     opacity: 1;
 }
 
 .vs-text {
-    font-size: clamp(1.1rem, 1.6vw, 1.5rem);
+    font-size: clamp(1rem, 1.4vw, 1.3rem);
     font-weight: 800;
     color: #9b4dff;
     text-shadow: 0 0 15px #9b4dff, 0 0 6px rgba(155, 77, 255, 0.9);
@@ -196,8 +175,8 @@ body {
     background: rgba(255, 123, 0, 0.3);
     border: 3px solid #ff7b00;
     border-radius: 10px;
-    padding: clamp(8px, 1.2vw, 12px);
-    margin-bottom: clamp(12px, 1.5vw, 18px);
+    padding: clamp(6px, 1vw, 10px);
+    margin-bottom: clamp(8px, 1.2vw, 12px);
     text-align: center;
     font-size: clamp(0.85rem, 1.1vw, 1.1rem);
     font-weight: 700;
@@ -206,12 +185,12 @@ body {
 }
 
 .gift-chart {
-    margin-bottom: clamp(12px, 2vw, 18px);
+    margin-bottom: clamp(8px, 1.5vw, 12px);
 }
 
 .gift-chart h3 {
-    font-size: clamp(1rem, 1.4vw, 1.6rem);
-    margin-bottom: clamp(10px, 1.5vw, 15px);
+    font-size: clamp(0.95rem, 1.3vw, 1.4rem);
+    margin-bottom: clamp(6px, 1vw, 10px);
     color: #ff7b00;
     text-align: center;
     text-shadow: 0 0 12px #ff7b00, 0 0 6px rgba(255, 140, 0, 0.9);
@@ -340,13 +319,13 @@ body {
 .instructions {
     background: rgba(155, 77, 255, 0.15);
     border-radius: 10px;
-    padding: clamp(12px, 1.5vw, 18px);
+    padding: clamp(8px, 1.2vw, 14px);
 }
 
 .instructions p {
-    font-size: clamp(0.75rem, 1vw, 1rem);
-    line-height: 1.5;
-    margin-bottom: clamp(3px, 0.5vw, 6px);
+    font-size: clamp(0.7rem, 0.9vw, 0.95rem);
+    line-height: 1.4;
+    margin-bottom: clamp(2px, 0.4vw, 4px);
     font-weight: 600;
     text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
 }
@@ -354,7 +333,7 @@ body {
 .instructions strong {
     color: #ff7b00;
     display: block;
-    margin-bottom: clamp(6px, 0.8vw, 10px);
+    margin-bottom: clamp(4px, 0.6vw, 8px);
     font-weight: 700;
     text-shadow: 0 0 6px rgba(255, 140, 0, 0.9);
 }
@@ -460,19 +439,23 @@ h1 {
 }
 
 .round-status {
-    margin-top: 10px;
-    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    margin-top: clamp(8px, 1.5vw, 15px);
+    font-size: clamp(1.4rem, 2.2vw, 1.8rem);
     font-weight: 800;
     color: #00ff88;
     text-shadow: 
         0 0 15px #00ff88,
         0 0 25px rgba(0, 255, 136, 0.8),
         2px 2px 4px rgba(0, 0, 0, 0.9);
-    background: rgba(0, 255, 136, 0.1);
-    padding: 8px 20px;
+    background: rgba(0, 255, 136, 0.15);
+    padding: clamp(6px, 1.2vw, 12px) clamp(15px, 2.5vw, 30px);
     border-radius: 10px;
-    border: 2px solid #00ff88;
-    display: inline-block;
+    border: 3px solid #00ff88;
+    display: none; /* Hidden by default */
+}
+
+.round-status:not(:empty) {
+    display: inline-block; /* Only show when it has content */
 }
 
 .connection-status {
