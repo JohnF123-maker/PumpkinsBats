@@ -118,8 +118,9 @@ function createEntity(team, large = false, x = null, y = null, xOffset = 0) {
  * Spawn with optional Y position - respects freeze/queue and anti-cramming
  */
 export function spawnEntity(team, large = false, yPos = null) {
-    // If in countdown, round_end, or sudden death state, queue the spawn
-    if (state === 'countdown' || state === 'round_end' || state === 'sudden') {
+    // If in countdown or round_end state, queue the spawn
+    // Note: sudden death allows spawns (it's active gameplay)
+    if (state === 'countdown' || state === 'round_end') {
         spawnQueue.push({ team, large, yPos });
         // Removed verbose log to reduce logging rate
         return null;

@@ -64,7 +64,14 @@
                 <div id="round-status" class="round-status">Ready</div>
             </div>
             
-            <canvas id="gameCanvas" width="1280" height="720"></canvas>
+            <!-- Canvas wrapper for banner positioning -->
+            <div class="canvas-wrapper">
+                <canvas id="gameCanvas" width="1280" height="720"></canvas>
+                
+                <!-- Event banners positioned over canvas -->
+                <div id="event-banner" class="event-banner"></div>
+                <div id="mega-banner" class="mega-banner"></div>
+            </div>
             
             <!-- Total Wins Scoreboard -->
             <div id="total-wins" class="total-wins">
@@ -89,9 +96,6 @@
                 <div class="control-item"><kbd>M</kbd> Mute</div>
             </div>
         </div>
-        
-        <div id="event-banner" class="event-banner"></div>
-        <div id="mega-banner" class="mega-banner"></div>
     </div>
     
     <script type="module" src="utils.js"></script>
