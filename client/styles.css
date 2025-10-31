@@ -14,9 +14,10 @@ body {
     background: linear-gradient(180deg, #050008 0%, #2a004b 60%, #1a0b00 100%);
     color: #fff;
     overflow-x: hidden;
+    overflow-y: auto;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     min-height: 100vh;
     padding: 20px;
 }
@@ -150,20 +151,42 @@ body {
     padding: clamp(15px, 2vw, 25px);
     box-shadow: 0 0 40px rgba(155, 77, 255, 0.6);
     flex-shrink: 0;
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Custom scrollbar for sidebar */
+.side-panel::-webkit-scrollbar {
+    width: 8px;
+}
+
+.side-panel::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+}
+
+.side-panel::-webkit-scrollbar-thumb {
+    background: rgba(155, 77, 255, 0.6);
+    border-radius: 10px;
+}
+
+.side-panel::-webkit-scrollbar-thumb:hover {
+    background: rgba(155, 77, 255, 0.9);
 }
 
 .emojis-header {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: clamp(12px, 2vw, 20px);
-    margin-bottom: clamp(15px, 2.5vw, 25px);
-    font-size: clamp(2.5rem, 4vw, 4rem);
+    gap: clamp(10px, 1.5vw, 15px);
+    margin-bottom: clamp(12px, 2vw, 18px);
+    font-size: clamp(2rem, 3.5vw, 3.2rem);
     opacity: 1;
 }
 
 .vs-text {
-    font-size: clamp(1.3rem, 2vw, 2rem);
+    font-size: clamp(1.1rem, 1.6vw, 1.5rem);
     font-weight: 800;
     color: #9b4dff;
     text-shadow: 0 0 15px #9b4dff, 0 0 6px rgba(155, 77, 255, 0.9);
@@ -173,22 +196,22 @@ body {
     background: rgba(255, 123, 0, 0.3);
     border: 3px solid #ff7b00;
     border-radius: 10px;
-    padding: clamp(10px, 1.5vw, 15px);
-    margin-bottom: clamp(15px, 2vw, 25px);
+    padding: clamp(8px, 1.2vw, 12px);
+    margin-bottom: clamp(12px, 1.5vw, 18px);
     text-align: center;
-    font-size: clamp(0.95rem, 1.4vw, 1.3rem);
+    font-size: clamp(0.85rem, 1.1vw, 1.1rem);
     font-weight: 700;
     color: #ff7b00;
     text-shadow: 0 0 8px #ff7b00, 0 0 6px rgba(255, 140, 0, 0.9);
 }
 
 .gift-chart {
-    margin-bottom: clamp(20px, 3vw, 30px);
+    margin-bottom: clamp(12px, 2vw, 18px);
 }
 
 .gift-chart h3 {
-    font-size: clamp(1.1rem, 1.6vw, 2.2rem);
-    margin-bottom: clamp(12px, 2vw, 20px);
+    font-size: clamp(1rem, 1.4vw, 1.6rem);
+    margin-bottom: clamp(10px, 1.5vw, 15px);
     color: #ff7b00;
     text-align: center;
     text-shadow: 0 0 12px #ff7b00, 0 0 6px rgba(255, 140, 0, 0.9);
@@ -214,9 +237,9 @@ body {
 }
 
 .gift-chart td {
-    padding: clamp(6px, 1vw, 10px) clamp(5px, 0.8vw, 8px);
-    font-size: clamp(0.9rem, 1.4vw, 1.8rem);
-    line-height: 1.5;
+    padding: clamp(5px, 0.8vw, 8px) clamp(4px, 0.6vw, 6px);
+    font-size: clamp(0.8rem, 1.1vw, 1.2rem);
+    line-height: 1.4;
     font-weight: 700;
     background: rgba(0, 0, 0, 0.35);
     border-radius: 8px;
@@ -234,7 +257,7 @@ body {
     color: #9b4dff;
     font-weight: 700;
     text-shadow: 0 0 6px rgba(155, 77, 255, 0.9);
-    font-size: 1.4em;
+    font-size: 1.3em;
     line-height: 1.2em;
     opacity: 1;
 }
@@ -321,9 +344,9 @@ body {
 }
 
 .instructions p {
-    font-size: clamp(0.85rem, 1.3vw, 1.5rem);
-    line-height: 1.7;
-    margin-bottom: clamp(4px, 0.6vw, 8px);
+    font-size: clamp(0.75rem, 1vw, 1rem);
+    line-height: 1.5;
+    margin-bottom: clamp(3px, 0.5vw, 6px);
     font-weight: 600;
     text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
 }
@@ -331,7 +354,7 @@ body {
 .instructions strong {
     color: #ff7b00;
     display: block;
-    margin-bottom: clamp(8px, 1.2vw, 14px);
+    margin-bottom: clamp(6px, 0.8vw, 10px);
     font-weight: 700;
     text-shadow: 0 0 6px rgba(255, 140, 0, 0.9);
 }
