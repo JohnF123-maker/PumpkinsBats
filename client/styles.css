@@ -404,8 +404,8 @@ h1 {
 .total-wins {
     position: fixed;
     bottom: 50px;
-    /* Center to game field, matching the game canvas center */
-    left: calc(280px + 20px + 640px);
+    /* Center to game canvas: body padding + sidebar + gap + half canvas */
+    left: calc(20px + 280px + 20px + 640px);
     transform: translateX(-50%);
     display: flex;
     gap: 20px;
@@ -508,8 +508,8 @@ kbd {
 .event-banner {
     position: fixed;
     top: 50%;
-    /* Center to game field, not page: sidebar (280px) + gap (20px) + half canvas (640px) = 940px from left */
-    left: calc(280px + 20px + 640px);
+    /* Center to game canvas: body padding (20px) + sidebar (280px) + gap (20px) + half canvas (640px) = 960px from left */
+    left: calc(20px + 280px + 20px + 640px);
     transform: translate(-50%, -50%);
     font-size: 2.5rem;
     font-weight: bold;
@@ -535,8 +535,8 @@ kbd {
 .mega-banner {
     position: fixed;
     top: 20%;
-    /* Center to game field: sidebar + gap + half canvas */
-    left: calc(280px + 20px + 640px);
+    /* Center to game canvas: body padding + sidebar + gap + half canvas */
+    left: calc(20px + 280px + 20px + 640px);
     transform: translate(-50%, -50%);
     font-size: 3.5rem;
     font-weight: bold;

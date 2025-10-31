@@ -43,6 +43,7 @@ let countdownTimer = 0;
 let timeRemaining = ROUND_TIME;
 let lastFrameTime = Date.now();
 let autoSpawnTimer = 0; // Timer for auto-spawn (changed to 5 seconds)
+let enteringSuddenDeath = false; // Flag to track if countdown leads to sudden death
 
 // Scores
 let pumpkinScore = 0;
@@ -245,9 +246,16 @@ export function startRound() {
  * Begin actual gameplay after countdown
  */
 function beginGameplay() {
-    state = 'playing';
+    if (enteringSuddenDeath) {
+        state = 'sudden';
+        enteringSuddenDeath = false;
+        Audio.overtime();
+        console.log('⚡ Sudden death: First to score wins!');
+    } else {
+        state = 'playing';
+        console.log('🎮 Gameplay active!');
+    }
     flushSpawnQueue(); // Spawn any queued entities
-    console.log('🎮 Gameplay active!');
 }
 
 /**
@@ -361,21 +369,13 @@ function update(deltaTime) {
             setTimeout(() => {
                 showEventBanner('SUDDEN DEATH!', 1500);
                 
-                // After another 1.5s, start countdown
+                // After another 1.5s, start countdown leading to sudden death
                 setTimeout(() => {
+                    enteringSuddenDeath = true; // Set flag so beginGameplay() enters sudden state
                     state = 'countdown';
                     countdownValue = 3;
                     countdownTimer = 0;
-                    timeRemaining = 999; // No time limit in sudden death
-                    
-                    // After countdown, enter sudden death
-                    setTimeout(() => {
-                        if (state === 'countdown' && countdownValue <= 0) {
-                            state = 'sudden';
-                            Audio.overtime(); // Play overtime sound
-                            console.log('⚡ Sudden death: First to score wins!');
-                        }
-                    }, 3100);
+                    timeRemaining = 999; // Set high value, but timer won't decrement in sudden state
                 }, 1500);
             }, 1500);
         } else {
