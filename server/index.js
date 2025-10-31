@@ -13,6 +13,15 @@ import { fileURLToPath } from 'url';
 import { WebcastPushConnection } from 'tiktok-live-connector';
 import { classifyGiftAction } from './gift-map.js';
 
+// Logging control - disable verbose logs in production to avoid Railway rate limits (500 logs/sec max)
+const VERBOSE_LOGGING = process.env.NODE_ENV !== 'production';
+const log = {
+  info: (msg) => console.log(msg),
+  warn: (msg) => console.warn(msg),
+  error: (msg) => console.error(msg),
+  verbose: (...args) => VERBOSE_LOGGING && console.log(...args)
+};
+
 // ES Module dirname workaround
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -124,7 +133,7 @@ function initTikTokConnection(username) {
   // LIKE events
   tiktokConnection.on('like', (data) => {
     const likeCount = data.likeCount || 1;
-    console.log(`💗 ${data.uniqueId || 'Someone'} sent ${likeCount} like(s)`);
+    log.verbose(`💗 ${data.uniqueId || 'Someone'} sent ${likeCount} like(s)`);
     
     io.emit('like', { 
       count: likeCount,
@@ -134,7 +143,7 @@ function initTikTokConnection(username) {
 
   // COMMENT events
   tiktokConnection.on('chat', (data) => {
-    console.log(`💬 ${data.uniqueId}: ${data.comment}`);
+    log.verbose(`💬 ${data.uniqueId}: ${data.comment}`);
     
     io.emit('comment', {
       text: data.comment,
@@ -145,7 +154,7 @@ function initTikTokConnection(username) {
   // FOLLOW events
   tiktokConnection.on('social', (data) => {
     if (data.displayType && data.displayType.includes('follow')) {
-      console.log(`👥 ${data.uniqueId} followed!`);
+      log.verbose(`👥 ${data.uniqueId} followed!`);
       
       io.emit('follow', {
         user: data.uniqueId
@@ -155,7 +164,7 @@ function initTikTokConnection(username) {
 
   // SHARE events
   tiktokConnection.on('share', (data) => {
-    console.log(`📤 ${data.uniqueId} shared the stream!`);
+    log.verbose(`📤 ${data.uniqueId} shared the stream!`);
     
     io.emit('share', {
       user: data.uniqueId
@@ -171,7 +180,7 @@ function initTikTokConnection(username) {
     // Get gift action from new schema
     const giftAction = classifyGiftAction(giftName, diamonds);
     
-    console.log(`🎁 ${data.uniqueId} sent "${giftName}" (${diamonds} 💎) - Action: ${giftAction.action}`);
+    log.verbose(`🎁 ${data.uniqueId} sent "${giftName}" (${diamonds} 💎) - Action: ${giftAction.action}`);
     
     io.emit('gift', {
       giftName,

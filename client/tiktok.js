@@ -154,7 +154,7 @@ function updateLikeProgress() {
  * Handle TikTok like event - NEW: Aggregate to spawn every 10 likes
  */
 function handleLike(data) {
-    console.log('👍 Like received:', data);
+    // Removed verbose log to reduce logging rate
     
     totalLikes++;
     updateLikeProgress();
@@ -163,7 +163,7 @@ function handleLike(data) {
     if (totalLikes % 10 === 0) {
         const randomTeam = Math.random() < 0.5 ? 'pumpkin' : 'bat';
         spawnEntity(randomTeam, false);
-        console.log(`  → 10 likes reached! Spawned random ${randomTeam}`);
+        // Removed verbose log
     } else {
         // Fallback: 10% chance to spawn if no reliable total
         if (Math.random() < 0.1) {
@@ -179,7 +179,7 @@ function handleLike(data) {
  */
 function handleComment(data) {
     const message = (data.text || data.comment || '').toLowerCase();
-    console.log('💬 Comment received:', data, '| Message:', message);
+    // Removed verbose log to reduce logging rate
     
     // Check for pumpkin keywords: "pumpkin" or standalone "p"
     const pumpkinMatch = /(^|\W)(pumpkin|p)(\W|$)/i.test(message);
@@ -190,13 +190,12 @@ function handleComment(data) {
     // Spawn based on first match (prioritize pumpkin if both match)
     if (pumpkinMatch) {
         spawnEntity('pumpkin', false);
-        console.log(`  → Keyword matched: spawned pumpkin`);
+        // Removed verbose log
     } else if (batMatch) {
         spawnEntity('bat', false);
-        console.log(`  → Keyword matched: spawned bat`);
-    } else {
-        console.log(`  → No keyword match, no spawn`);
+        // Removed verbose log
     }
+    // No else log - reduces noise
 }
 
 /**

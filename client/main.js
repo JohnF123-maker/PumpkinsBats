@@ -121,7 +121,7 @@ export function spawnEntity(team, large = false, yPos = null) {
     // If in countdown, round_end, or sudden death state, queue the spawn
     if (state === 'countdown' || state === 'round_end' || state === 'sudden') {
         spawnQueue.push({ team, large, yPos });
-        console.log(`⏸️ Spawn queued: ${team} (${large ? 'large' : 'small'})`);
+        // Removed verbose log to reduce logging rate
         return null;
     }
     
@@ -351,7 +351,7 @@ function update(deltaTime) {
             const batY = rand(100, canvas.height - 100);
             spawnEntity('pumpkin', false, pumpkinY);
             spawnEntity('bat', false, batY);
-            console.log('⏰ Auto-spawn: 1 pumpkin + 1 bat (non-mirrored)');
+            // Removed auto-spawn log to reduce logging rate
         }
     }
     
@@ -433,7 +433,7 @@ function update(deltaTime) {
             // Remove entity and play goal sound
             entities.splice(i, 1);
             Audio.goal();
-            console.log(`⚽ ${e.team} scored ${finalPoints} point(s)!`);
+            // Score logged only in sudden death below (removed regular scoring log to reduce rate)
             
             // In sudden death, check if one team has taken the lead
             if (state === 'sudden') {
