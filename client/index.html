@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎃 Halloween Battle: Pumpkins vs Bats 🦇</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- TikTok Setup Screen (hidden after connection) -->
+    <div id="setup-screen" class="setup-screen">
+        <div class="setup-container">
+            <h1>🎃 Halloween Battle Setup 🦇</h1>
+            <p>Enter your TikTok username to connect to your live stream:</p>
+            <div class="input-group">
+                <input 
+                    type="text" 
+                    id="tiktok-username-input" 
+                    placeholder="your_tiktok_username"
+                    autocomplete="off"
+                />
+                <button id="connect-button">Connect to TikTok Live</button>
+            </div>
+            <p class="setup-note">Leave empty to run in simulation mode (keyboard only)</p>
+            <div id="connection-message" class="connection-message"></div>
+        </div>
+    </div>
+
+    <!-- Main Game Screen -->
+    <div id="game-screen" class="game-container" style="display: none;">
+        <!-- Left Side Panel: Gift Chart & Instructions -->
+        <div class="side-panel">
+            <div class="emojis-header">
+                🎃 <span class="vs-text">VS</span> 🦇
+            </div>
+            
+            <div class="like-progress" id="like-progress">
+                ❤️ Likes: 0  (0/10 → next spawn)
+            </div>
+            
+            <div class="gift-chart">
+                <h3>🎁 How It Works</h3>
+                <table>
+                    <tr><td>❤️ Likes</td><td>🎲 +1 Random every 10</td></tr>
+                    <tr><td>💬 Comments</td><td>"pumpkin"/"p" → 🎃<br>"bat"/"b" → 🦇</td></tr>
+                    <tr><td>➕ Follow</td><td>🎃 +1 & 🦇 +1</td></tr>
+                    <tr><td>🌹 Rose</td><td>🦇 +5 Bats</td></tr>
+                    <tr><td>🎃 Pumpkin</td><td>🎃 +5 Pumpkins</td></tr>
+                    <tr class="featured"><td>👻 Boo <span class="tag">FEATURED</span></td><td>🎃 +1 Large Tank</td></tr>
+                    <tr class="featured"><td>🌹 Rosa <span class="tag">FEATURED</span></td><td>🦇 +1 Large Tank</td></tr>
+                    <tr class="featured-wild"><td>🎁 October <span class="tag">WILD</span></td><td>⚡ Wild Boost!</td></tr>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Main Game Area -->
+        <div class="game-main">
+            <div class="header">
+                <div id="scoreboard" class="scoreboard">
+                    <span class="team-score orange">🎃 <span id="pumpkin-score">0</span></span>
+                    <span class="timer" id="timer">1:00</span>
+                    <span class="team-score purple">🦇 <span id="bat-score">0</span></span>
+                </div>
+                <div id="round-status" class="round-status">Ready</div>
+            </div>
+            
+            <canvas id="gameCanvas" width="1280" height="720"></canvas>
+            
+            <!-- Total Wins Scoreboard -->
+            <div id="total-wins" class="total-wins">
+                <span class="win-count orange">🎃 Total Wins: <span id="pumpkin-wins">0</span></span>
+                <span class="win-separator">|</span>
+                <span class="win-count purple">🦇 Total Wins: <span id="bat-wins">0</span></span>
+            </div>
+        </div>
+        
+        <!-- Test Controls (hidden by default for production) -->
+        <div class="controls" style="display: none;">
+            <h3>🎮 Test Controls</h3>
+            <div class="control-grid">
+                <div class="control-item"><kbd>L</kbd> Like</div>
+                <div class="control-item"><kbd>C</kbd> Comment</div>
+                <div class="control-item"><kbd>F</kbd> Follow</div>
+                <div class="control-item"><kbd>1</kbd> Rose Gift</div>
+                <div class="control-item"><kbd>2</kbd> Pumpkin Gift</div>
+                <div class="control-item"><kbd>3</kbd> Medium A</div>
+                <div class="control-item"><kbd>4</kbd> Medium B</div>
+                <div class="control-item"><kbd>5</kbd> Wild Card</div>
+                <div class="control-item"><kbd>M</kbd> Mute</div>
+            </div>
+        </div>
+        
+        <div id="event-banner" class="event-banner"></div>
+        <div id="mega-banner" class="mega-banner"></div>
+    </div>
+    
+    <script type="module" src="utils.js"></script>
+    <script type="module" src="audio.js"></script>
+    <script type="module" src="main.js"></script>
+    <script type="module" src="tiktok.js"></script>
+</body>
+</html>
