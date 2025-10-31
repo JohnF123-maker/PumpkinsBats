@@ -612,3 +612,45 @@ body.muted .controls h3::after {
     content: " 🔇";
     color: #ff0000;
 }
+
+/* Mobile responsive styles for How It Works panel */
+@media (max-width: 900px) {
+    .side-panel {
+        width: 90%;
+        max-width: 400px;
+        font-size: clamp(0.85rem, 2.5vw, 1rem);
+        padding: 15px;
+        position: fixed;
+        top: 10px;
+        left: 5%;
+        z-index: 50;
+    }
+    
+    .emojis-header {
+        font-size: clamp(2rem, 6vw, 3rem);
+        margin-bottom: 15px;
+    }
+    
+    .gift-chart h3 {
+        font-size: clamp(1.1rem, 3.5vw, 1.3rem);
+        margin-bottom: 12px;
+    }
+    
+    .gift-chart td {
+        padding: 6px 4px;
+        font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+    }
+    
+    .like-progress {
+        font-size: clamp(0.85rem, 2.5vw, 1rem);
+        padding: 10px;
+    }
+}
+
+/* Desktop: Keep side panel anchored left */
+@media (min-width: 901px) {
+    .side-panel {
+        position: static;
+        width: 280px;
+    }
+}
