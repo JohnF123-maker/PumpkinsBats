@@ -136,154 +136,204 @@ body {
     flex-direction: row;
     align-items: flex-start;
     gap: 20px;
-    max-width: 1600px;
+    max-width: 1800px;
     width: 100%;
     padding: 20px;
 }
 
-/* Side Panel */
+/* Side Panel - Enhanced for Livestream Visibility */
 .side-panel {
-    width: 280px;
-    background: rgba(0, 0, 0, 0.8);
-    border: 2px solid #9b4dff;
+    width: clamp(260px, 20vw, 340px);
+    background: rgba(0, 0, 0, 0.85);
+    border: 3px solid #9b4dff;
     border-radius: 15px;
-    padding: 20px;
-    box-shadow: 0 0 30px rgba(155, 77, 255, 0.4);
+    padding: clamp(15px, 2vw, 25px);
+    box-shadow: 0 0 40px rgba(155, 77, 255, 0.6);
+    flex-shrink: 0;
 }
 
 .emojis-header {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 15px;
-    margin-bottom: 20px;
-    font-size: 3rem;
+    gap: clamp(12px, 2vw, 20px);
+    margin-bottom: clamp(15px, 2.5vw, 25px);
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    opacity: 1;
 }
 
 .vs-text {
-    font-size: 1.5rem;
-    font-weight: bold;
+    font-size: clamp(1.3rem, 2vw, 2rem);
+    font-weight: 800;
     color: #9b4dff;
-    text-shadow: 0 0 10px #9b4dff;
+    text-shadow: 0 0 15px #9b4dff, 0 0 6px rgba(155, 77, 255, 0.9);
 }
 
 .like-progress {
-    background: rgba(255, 123, 0, 0.2);
-    border: 2px solid #ff7b00;
+    background: rgba(255, 123, 0, 0.3);
+    border: 3px solid #ff7b00;
     border-radius: 10px;
-    padding: 12px;
-    margin-bottom: 20px;
+    padding: clamp(10px, 1.5vw, 15px);
+    margin-bottom: clamp(15px, 2vw, 25px);
     text-align: center;
-    font-size: 1rem;
-    font-weight: bold;
+    font-size: clamp(0.95rem, 1.4vw, 1.3rem);
+    font-weight: 700;
     color: #ff7b00;
-    text-shadow: 0 0 5px #ff7b00;
+    text-shadow: 0 0 8px #ff7b00, 0 0 6px rgba(255, 140, 0, 0.9);
 }
 
 .gift-chart {
-    margin-bottom: 25px;
+    margin-bottom: clamp(20px, 3vw, 30px);
 }
 
 .gift-chart h3 {
-    font-size: 1.3rem;
-    margin-bottom: 15px;
+    font-size: clamp(1.1rem, 1.6vw, 2.2rem);
+    margin-bottom: clamp(12px, 2vw, 20px);
     color: #ff7b00;
     text-align: center;
-    text-shadow: 0 0 10px #ff7b00;
+    text-shadow: 0 0 12px #ff7b00, 0 0 6px rgba(255, 140, 0, 0.9);
+    font-weight: 700;
+    animation: titlePulse 3s ease-in-out infinite;
+}
+
+@keyframes titlePulse {
+    0%, 100% { 
+        text-shadow: 0 0 12px #ff7b00, 0 0 6px rgba(255, 140, 0, 0.9);
+        transform: scale(1);
+    }
+    50% { 
+        text-shadow: 0 0 20px #ff7b00, 0 0 10px rgba(255, 140, 0, 1);
+        transform: scale(1.03);
+    }
 }
 
 .gift-chart table {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0 4px;
 }
 
 .gift-chart td {
-    padding: 8px 5px;
-    border-bottom: 1px solid rgba(155, 77, 255, 0.3);
-    font-size: 0.9rem;
-    line-height: 1.4;
+    padding: clamp(6px, 1vw, 10px) clamp(5px, 0.8vw, 8px);
+    font-size: clamp(0.9rem, 1.4vw, 1.8rem);
+    line-height: 1.5;
+    font-weight: 700;
+    background: rgba(0, 0, 0, 0.35);
+    border-radius: 8px;
+    transition: transform 0.15s ease, background 0.15s ease;
+}
+
+@media (hover: hover) {
+    .gift-chart tr:hover td {
+        transform: translateX(3px);
+        background: rgba(0, 0, 0, 0.5);
+    }
 }
 
 .gift-chart td:first-child {
     color: #9b4dff;
-    font-weight: bold;
+    font-weight: 700;
+    text-shadow: 0 0 6px rgba(155, 77, 255, 0.9);
+    font-size: 1.4em;
+    line-height: 1.2em;
+    opacity: 1;
 }
 
 .gift-chart td:last-child {
     text-align: right;
-    font-weight: bold;
+    font-weight: 700;
     color: #ff7b00;
+    text-shadow: 0 0 6px rgba(255, 140, 0, 0.9);
 }
 
 /* Featured gift rows */
 .gift-chart tr.featured {
-    background: rgba(255, 215, 0, 0.1);
-    border-left: 3px solid #ffd700;
+    background: transparent;
+    border-left: none;
 }
 
 .gift-chart tr.featured td {
     color: #ffd700;
-    text-shadow: 0 0 5px #ffd700;
+    text-shadow: 0 0 8px #ffd700, 0 0 6px rgba(255, 215, 0, 0.9);
+    background: rgba(255, 215, 0, 0.15);
+    font-weight: 700;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.gift-chart tr.featured:hover td {
+    transform: scale(1.05);
+    background: rgba(255, 215, 0, 0.25);
 }
 
 .gift-chart tr.featured-wild {
-    background: rgba(255, 0, 255, 0.15);
-    border-left: 3px solid #ff00ff;
+    background: transparent;
+    border-left: none;
 }
 
 .gift-chart tr.featured-wild td {
     color: #ff00ff;
-    text-shadow: 0 0 8px #ff00ff;
-    font-weight: bold;
+    text-shadow: 0 0 12px #ff00ff, 0 0 6px rgba(255, 0, 255, 0.9);
+    font-weight: 800;
+    background: rgba(255, 0, 255, 0.2);
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.gift-chart tr.featured-wild:hover td {
+    transform: scale(1.08);
+    background: rgba(255, 0, 255, 0.3);
 }
 
 .gift-chart .tag {
     display: inline-block;
-    font-size: 0.65rem;
-    padding: 2px 6px;
-    margin-left: 6px;
-    border-radius: 4px;
-    font-weight: bold;
+    font-size: clamp(0.6rem, 0.9vw, 0.9rem);
+    padding: clamp(2px, 0.3vw, 4px) clamp(4px, 0.6vw, 8px);
+    margin-left: clamp(4px, 0.6vw, 8px);
+    border-radius: 6px;
+    font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.8px;
 }
 
 .gift-chart .featured .tag {
-    background: rgba(255, 215, 0, 0.3);
+    background: rgba(255, 215, 0, 0.4);
     color: #ffd700;
-    border: 1px solid #ffd700;
-    box-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+    border: 2px solid #ffd700;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
 }
 
 .gift-chart .featured-wild .tag {
-    background: rgba(255, 0, 255, 0.3);
+    background: rgba(255, 0, 255, 0.4);
     color: #ff00ff;
-    border: 1px solid #ff00ff;
-    box-shadow: 0 0 12px rgba(255, 0, 255, 0.6);
+    border: 2px solid #ff00ff;
+    box-shadow: 0 0 15px rgba(255, 0, 255, 0.8);
     animation: wildPulse 2s ease-in-out infinite;
 }
 
 @keyframes wildPulse {
-    0%, 100% { box-shadow: 0 0 12px rgba(255, 0, 255, 0.6); }
-    50% { box-shadow: 0 0 20px rgba(255, 0, 255, 0.9); }
+    0%, 100% { box-shadow: 0 0 15px rgba(255, 0, 255, 0.8); }
+    50% { box-shadow: 0 0 25px rgba(255, 0, 255, 1); }
 }
 
 .instructions {
-    background: rgba(155, 77, 255, 0.1);
+    background: rgba(155, 77, 255, 0.15);
     border-radius: 10px;
-    padding: 15px;
+    padding: clamp(12px, 1.5vw, 18px);
 }
 
 .instructions p {
-    font-size: 0.9rem;
-    line-height: 1.6;
-    margin-bottom: 5px;
+    font-size: clamp(0.85rem, 1.3vw, 1.5rem);
+    line-height: 1.7;
+    margin-bottom: clamp(4px, 0.6vw, 8px);
+    font-weight: 600;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
 }
 
 .instructions strong {
     color: #ff7b00;
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: clamp(8px, 1.2vw, 14px);
+    font-weight: 700;
+    text-shadow: 0 0 6px rgba(255, 140, 0, 0.9);
 }
 
 /* Main Game Area */
@@ -613,44 +663,99 @@ body.muted .controls h3::after {
     color: #ff0000;
 }
 
-/* Mobile responsive styles for How It Works panel */
-@media (max-width: 900px) {
+/* ===============================================================================
+   RESPONSIVE LAYOUT - OPTIMIZED FOR LIVESTREAM & MOBILE
+   =============================================================================== */
+
+/* Large Desktop - Horizontal Layout */
+@media (min-width: 1200px) {
+    .game-container {
+        flex-direction: row;
+    }
+    
     .side-panel {
-        width: 90%;
-        max-width: 400px;
-        font-size: clamp(0.85rem, 2.5vw, 1rem);
-        padding: 15px;
-        position: fixed;
-        top: 10px;
-        left: 5%;
-        z-index: 50;
-    }
-    
-    .emojis-header {
-        font-size: clamp(2rem, 6vw, 3rem);
-        margin-bottom: 15px;
-    }
-    
-    .gift-chart h3 {
-        font-size: clamp(1.1rem, 3.5vw, 1.3rem);
-        margin-bottom: 12px;
-    }
-    
-    .gift-chart td {
-        padding: 6px 4px;
-        font-size: clamp(0.8rem, 2.5vw, 0.9rem);
-    }
-    
-    .like-progress {
-        font-size: clamp(0.85rem, 2.5vw, 1rem);
-        padding: 10px;
+        position: static;
+        width: clamp(260px, 20vw, 340px);
     }
 }
 
-/* Desktop: Keep side panel anchored left */
-@media (min-width: 901px) {
+/* Medium Screens - Vertical Layout */
+@media (max-width: 1199px) {
+    .game-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
     .side-panel {
-        position: static;
-        width: 280px;
+        width: 100%;
+        max-width: 800px;
+        margin-bottom: 20px;
+    }
+}
+
+/* TikTok Vertical Aspect / Small Screens - Enhanced Visibility */
+@media (max-width: 900px), (max-height: 800px) {
+    .side-panel {
+        width: 95%;
+        max-width: 600px;
+        padding: clamp(12px, 2vw, 20px);
+        position: relative;
+        margin-bottom: 15px;
+    }
+    
+    .emojis-header {
+        font-size: clamp(3rem, 7vw, 5rem);
+        margin-bottom: clamp(12px, 2vw, 20px);
+        gap: clamp(15px, 3vw, 30px);
+    }
+    
+    .vs-text {
+        font-size: clamp(1.5rem, 3vw, 2.5rem);
+    }
+    
+    .gift-chart h3 {
+        font-size: clamp(1.3rem, 2.2vw, 2.8rem);
+        margin-bottom: clamp(10px, 1.5vw, 18px);
+    }
+    
+    /* Two-column grid for "How It Works" items */
+    .gift-chart table {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: clamp(6px, 1vw, 10px);
+        border-spacing: 0;
+    }
+    
+    .gift-chart tr {
+        display: contents;
+    }
+    
+    .gift-chart td {
+        padding: clamp(8px, 1.5vw, 14px) clamp(6px, 1vw, 10px);
+        font-size: clamp(1rem, 1.8vw, 2.2rem);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        grid-column: span 2;
+    }
+    
+    .gift-chart td:first-child {
+        font-size: 2.1em;
+        margin-bottom: 4px;
+    }
+    
+    .gift-chart td:last-child {
+        text-align: center;
+        font-size: clamp(0.95rem, 1.6vw, 2rem);
+    }
+    
+    .like-progress {
+        font-size: clamp(1rem, 1.8vw, 1.6rem);
+        padding: clamp(12px, 2vw, 16px);
+    }
+    
+    .instructions p {
+        font-size: clamp(0.9rem, 1.6vw, 1.8rem);
     }
 }
