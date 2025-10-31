@@ -94,40 +94,40 @@ function initTikTokConnection(username) {
   const usernameToUse = username || TIKTOK_USERNAME;
   
   if (!usernameToUse) {
-    console.log('⚠️  No TIKTOK_USERNAME provided - running in simulation mode');
-    console.log('💡 Set TIKTOK_USERNAME in .env or provide via client to connect to TikTok Live');
+    log.info('⚠️  No TIKTOK_USERNAME provided - running in simulation mode');
+    log.verbose('💡 Set TIKTOK_USERNAME in .env or provide via client to connect to TikTok Live');
     return;
   }
 
   // Disconnect existing connection if any
   if (tiktokConnection) {
-    console.log('🔄 Disconnecting existing TikTok connection...');
+    log.verbose('🔄 Disconnecting existing TikTok connection...');
     tiktokConnection.disconnect();
   }
 
-  console.log(`🔌 Connecting to TikTok Live: @${usernameToUse}`);
+  log.info(`🔌 Connecting to TikTok Live: @${usernameToUse}`);
   
   tiktokConnection = new WebcastPushConnection(usernameToUse);
 
   // Connection events
   tiktokConnection.connect()
     .then(state => {
-      console.log(`✅ Connected to @${usernameToUse}'s live stream!`);
-      console.log(`📊 State:`, state);
+      log.info(`✅ Connected to @${usernameToUse}'s live stream!`);
+      log.verbose(`📊 State:`, state);
     })
     .catch(err => {
-      console.error('❌ Failed to connect to TikTok Live:', err.message);
-      console.log('💡 Make sure the user is currently LIVE');
+      log.error('❌ Failed to connect to TikTok Live:', err.message);
+      log.info('💡 Make sure the user is currently LIVE');
     });
 
   // Disconnection
   tiktokConnection.on('disconnected', () => {
-    console.log('🔌 Disconnected from TikTok Live');
+    log.info('🔌 Disconnected from TikTok Live');
   });
 
   // Error handling
   tiktokConnection.on('error', (err) => {
-    console.error('❌ TikTok connection error:', err);
+    log.error('❌ TikTok connection error:', err);
   });
 
   // LIKE events
@@ -198,7 +198,7 @@ function initTikTokConnection(username) {
 // Socket.IO connection handling
 io.on('connection', (socket) => {
   const clientUsername = socket.handshake.query.tiktok_username;
-  console.log(`🎮 Client connected: ${socket.id} (username: ${clientUsername || 'none'})`);
+  log.verbose(`🎮 Client connected: ${socket.id} (username: ${clientUsername || 'none'})`);
   
   // If client provides a username, connect to TikTok with it
   if (clientUsername) {
@@ -206,7 +206,7 @@ io.on('connection', (socket) => {
   }
   
   socket.on('disconnect', () => {
-    console.log(`👋 Client disconnected: ${socket.id}`);
+    log.verbose(`👋 Client disconnected: ${socket.id}`);
   });
   
   // Allow clients to request connection status
@@ -225,29 +225,34 @@ if (TIKTOK_USERNAME) {
 
 // Start server
 httpServer.listen(PORT, () => {
-  console.log('');
-  console.log('╔════════════════════════════════════════════════════════╗');
-  console.log('║     🎃 Halloween Battle - TikTok Live Server 🦇       ║');
-  console.log('╚════════════════════════════════════════════════════════╝');
-  console.log('');
-  console.log(`🚀 Server running on port ${PORT}`);
-  console.log(`🌐 Mode: ${NODE_ENV}`);
-  console.log(`🔗 Client origin: ${CLIENT_ORIGIN}`);
-  console.log(`📡 TikTok: ${TIKTOK_USERNAME || 'simulation-mode'}`);
-  console.log('');
-  console.log(`Health check: http://localhost:${PORT}/health`);
-  console.log(`Status API: http://localhost:${PORT}/api/status`);
-  console.log('');
+  if (VERBOSE_LOGGING) {
+    console.log('');
+    console.log('╔════════════════════════════════════════════════════════╗');
+    console.log('║     🎃 Halloween Battle - TikTok Live Server 🦇       ║');
+    console.log('╚════════════════════════════════════════════════════════╝');
+    console.log('');
+    console.log(`🚀 Server running on port ${PORT}`);
+    console.log(`🌐 Mode: ${NODE_ENV}`);
+    console.log(`🔗 Client origin: ${CLIENT_ORIGIN}`);
+    console.log(`📡 TikTok: ${TIKTOK_USERNAME || 'simulation-mode'}`);
+    console.log('');
+    console.log(`Health check: http://localhost:${PORT}/health`);
+    console.log(`Status API: http://localhost:${PORT}/api/status`);
+    console.log('');
+  } else {
+    // Production: minimal logging
+    console.log(`🎃 Server started on port ${PORT} (${NODE_ENV})`);
+  }
 });
 
 // Graceful shutdown
 process.on('SIGTERM', () => {
-  console.log('SIGTERM received, closing server...');
+  log.info('SIGTERM received, closing server...');
   if (tiktokConnection) {
     tiktokConnection.disconnect();
   }
   httpServer.close(() => {
-    console.log('Server closed');
+    log.info('Server closed');
     process.exit(0);
   });
 });

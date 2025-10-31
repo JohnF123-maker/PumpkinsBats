@@ -178,24 +178,20 @@ function handleLike(data) {
  * Handle TikTok comment event - NEW: Keyword-based spawning
  */
 function handleComment(data) {
-    const message = (data.text || data.comment || '').toLowerCase();
-    // Removed verbose log to reduce logging rate
+    const message = (data.text || data.comment || '').toLowerCase().trim();
     
-    // Check for pumpkin keywords: "pumpkin" or standalone "p"
-    const pumpkinMatch = /(^|\W)(pumpkin|p)(\W|$)/i.test(message);
+    // Check for pumpkin keywords: "pumpkin" anywhere or "p" as whole word
+    const pumpkinMatch = message.includes('pumpkin') || /\bp\b/.test(message);
     
-    // Check for bat keywords: "bat", "bats", or standalone "b"
-    const batMatch = /(^|\W)(bat|bats|b)(\W|$)/i.test(message);
+    // Check for bat keywords: "bat"/"bats" anywhere or "b" as whole word
+    const batMatch = message.includes('bat') || /\bb\b/.test(message);
     
     // Spawn based on first match (prioritize pumpkin if both match)
     if (pumpkinMatch) {
         spawnEntity('pumpkin', false);
-        // Removed verbose log
     } else if (batMatch) {
         spawnEntity('bat', false);
-        // Removed verbose log
     }
-    // No else log - reduces noise
 }
 
 /**
