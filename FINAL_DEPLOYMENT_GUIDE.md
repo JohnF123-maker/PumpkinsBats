@@ -283,19 +283,59 @@ Access at http://localhost:8080 (server serves built client files).
 
 ### Option B: Deploy to Railway
 
-#### Step 1: Push to GitHub (same as Render)
+**Important:** Railway uses Nixpacks for automatic builds. The project includes `nixpacks.toml` and `railway.json` configuration files.
 
-#### Step 2: Deploy on Railway
+#### Step 1: Verify Local Build
+
+Before deploying, ensure the build works locally:
+
+```bash
+# Test client build
+cd client
+npm install
+npm run build
+
+# If successful, you'll see: "✓ built in XXXms"
+```
+
+#### Step 2: Push to GitHub (same as Render)
+
+Ensure all files are committed, including:
+- `nixpacks.toml` (Railway build configuration)
+- `railway.json` (Railway deploy configuration)
+- Root `package.json` (with updated scripts)
+
+```bash
+git add .
+git commit -m "Configure Railway deployment"
+git push origin main
+```
+
+#### Step 3: Deploy on Railway
 
 1. Go to [Railway.app](https://railway.app/)
 2. Click **"New Project"** → **"Deploy from GitHub"**
-3. Select your repository
-4. Railway auto-detects Node.js
+3. Select your repository: **PumpkinsBats**
+4. Railway will automatically detect:
+   - ✅ `nixpacks.toml` (build instructions)
+   - ✅ `railway.json` (deploy settings)
+   - ✅ Node.js 20 runtime
 
-5. **Configure Build**:
-   - Go to **Settings** → **Build & Deploy**
-   - **Build Command**: `npm run install:all && npm run build`
-   - **Start Command**: `npm start`
+5. **Railway automatically runs**:
+   - **Install Phase**: 
+     ```bash
+     npm install
+     cd client && npm install
+     cd server && npm install
+     ```
+   - **Build Phase**: 
+     ```bash
+     cd client && npm run build
+     ```
+   - **Start Phase**: 
+     ```bash
+     cd server && npm start
+     ```
 
 6. **Add Environment Variables**:
    - Go to **Variables** tab
@@ -307,16 +347,40 @@ Access at http://localhost:8080 (server serves built client files).
      ```
 
 7. **Generate Domain**:
-   - Go to **Settings** → **Domains**
+   - Go to **Settings** → **Networking**
    - Click **"Generate Domain"**
-   - Update `CLIENT_ORIGIN` variable with your Railway URL
+   - You'll get: `https://your-app.up.railway.app`
+   - Copy this URL
 
-8. Redeploy if needed
+8. **Update CLIENT_ORIGIN**:
+   - In **Variables** tab, add:
+     ```
+     CLIENT_ORIGIN=https://your-app.up.railway.app
+     ```
+   - Railway will auto-redeploy
+
+#### Troubleshooting:
+
+**Error: "vite: not found"**
+- ✅ Fixed by `nixpacks.toml` which installs client dependencies
+- Check build logs: "Installing client dependencies" should appear
+
+**Error: "Cannot find module"**
+- Ensure all three package.json files exist:
+  - `/package.json` (root - orchestration)
+  - `/client/package.json` (frontend - has vite)
+  - `/server/package.json` (backend - has express)
+
+**Build succeeds but app crashes:**
+- Check **Deployments** → **Logs** tab
+- Verify `PORT` environment variable is set to `8080`
+- Ensure server starts on `process.env.PORT || 8080`
 
 #### Notes:
-- $5 free credit/month
-- Always on (no cold starts)
-- Better performance than Render free tier
+- 💰 $5 free credit/month (~500 hours runtime)
+- ⚡ Always on (no cold starts)
+- 🚀 Better performance than Render free tier
+- 📦 Nixpacks handles complex monorepo builds automatically
 
 ---
 
