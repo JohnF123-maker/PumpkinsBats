@@ -225,6 +225,7 @@ export function spawnMultiple(team, count, large = false) {
  * Start new round with countdown
  */
 export function startRound() {
+    console.log('🎮 startRound() called - initializing new round...');
     state = 'countdown';
     countdownValue = 3;
     countdownTimer = 0;
@@ -240,7 +241,7 @@ export function startRound() {
     updateUI();
     hideBanners();
     
-    console.log('🎮 Round starting - countdown begins!');
+    console.log('✅ Round initialized - countdown begins!');
 }
 
 /**
@@ -302,9 +303,15 @@ function endRound() {
     }
     
     // Auto-restart after 3 seconds
+    console.log('⏱️ Setting auto-restart timer (3 seconds)...');
     setTimeout(() => {
-        console.log('🔄 Auto-restarting round...');
-        startRound();
+        console.log('🔄 Auto-restart timer fired! Starting new round...');
+        try {
+            startRound();
+            console.log('✅ New round started successfully');
+        } catch (error) {
+            console.error('❌ Error starting round:', error);
+        }
     }, 3000);
 }
 

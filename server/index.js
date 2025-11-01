@@ -176,11 +176,15 @@ function initTikTokConnection(username) {
     const giftName = data.giftName || data.gift?.name || 'Unknown';
     const diamonds = data.diamondCount || data.gift?.diamond_count || 0;
     const giftId = data.gift?.id || 0;
+    const repeatCount = data.repeatCount || 1; // Handle combo gifts
     
     // Get gift action from new schema
     const giftAction = classifyGiftAction(giftName, diamonds);
     
-    log.verbose(`🎁 ${data.uniqueId} sent "${giftName}" (${diamonds} 💎) - Action: ${giftAction.action}`);
+    // Multiply count by repeatCount for combo gifts
+    const finalCount = giftAction.count * repeatCount;
+    
+    log.verbose(`🎁 ${data.uniqueId} sent "${giftName}" x${repeatCount} (${diamonds} 💎) - Action: ${giftAction.action}`);
     
     io.emit('gift', {
       giftName,
@@ -188,7 +192,7 @@ function initTikTokConnection(username) {
       giftId,
       action: giftAction.action,
       team: giftAction.team,
-      count: giftAction.count,
+      count: finalCount,
       isLarge: giftAction.isLarge,
       user: data.uniqueId
     });
