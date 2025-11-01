@@ -527,6 +527,20 @@ h1 {
     max-width: 100%;
     height: auto;
     cursor: crosshair;
+    animation: arenaGlowPulse 4s ease-in-out infinite;
+}
+
+@keyframes arenaGlowPulse {
+    0%, 100% { 
+        box-shadow: 
+            0 0 30px rgba(255, 123, 0, 0.5),
+            0 0 60px rgba(155, 77, 255, 0.4);
+    }
+    50% { 
+        box-shadow: 
+            0 0 40px rgba(255, 123, 0, 0.8),
+            0 0 80px rgba(155, 77, 255, 0.6);
+    }
 }
 
 .controls {
@@ -644,6 +658,208 @@ kbd {
     75% { transform: translate(-50%, -50%) rotate(2deg); }
 }
 
+/* ===============================================================================
+   BRANDING & LIVE EFFECTS
+   =============================================================================== */
+
+/* Branding Tag - Bottom Right Corner */
+.brand-tag {
+    position: absolute;
+    bottom: clamp(10px, 1.5vw, 20px);
+    right: clamp(10px, 1.5vw, 20px);
+    font-family: 'Courier New', monospace;
+    font-size: clamp(0.9rem, 1.2vw, 1.4rem);
+    font-weight: 800;
+    color: #ff9a3d;
+    text-shadow: 
+        0 0 6px rgba(255, 160, 40, 0.9),
+        0 0 12px rgba(255, 160, 40, 0.6);
+    opacity: 0.9;
+    z-index: 100;
+    pointer-events: none;
+    animation: brandPulse 3s ease-in-out infinite;
+    white-space: nowrap;
+}
+
+@keyframes brandPulse {
+    0%, 100% { 
+        transform: scale(1);
+        filter: blur(0px);
+    }
+    50% { 
+        transform: scale(1.02);
+        filter: blur(0.5px);
+    }
+}
+
+/* LIVE Badge - Top Right */
+.live-badge {
+    position: absolute;
+    top: clamp(-35px, -5vw, -25px);
+    right: clamp(5px, 2vw, 15px);
+    font-size: clamp(0.9rem, 1.2vw, 1.2rem);
+    font-weight: 800;
+    color: #ff6666;
+    text-shadow: 
+        0 0 8px rgba(255, 102, 102, 0.9),
+        0 0 15px rgba(255, 50, 50, 0.7);
+    z-index: 100;
+    pointer-events: none;
+    animation: livePulse 6s ease-in-out infinite;
+}
+
+@keyframes livePulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+/* Background Particles */
+.bg-particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.particle {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    will-change: transform, opacity;
+}
+
+.particle-1 {
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle, rgba(255, 166, 77, 0.2) 0%, transparent 70%);
+    left: 10%;
+    bottom: -100px;
+    animation: particleDrift1 12s linear infinite;
+}
+
+.particle-2 {
+    width: 60px;
+    height: 60px;
+    background: radial-gradient(circle, rgba(216, 180, 255, 0.18) 0%, transparent 70%);
+    left: 30%;
+    bottom: -100px;
+    animation: particleDrift2 14s linear infinite;
+}
+
+.particle-3 {
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, rgba(255, 166, 77, 0.15) 0%, transparent 70%);
+    left: 50%;
+    bottom: -120px;
+    animation: particleDrift3 11s linear infinite;
+}
+
+.particle-4 {
+    width: 70px;
+    height: 70px;
+    background: radial-gradient(circle, rgba(216, 180, 255, 0.22) 0%, transparent 70%);
+    left: 70%;
+    bottom: -100px;
+    animation: particleDrift4 13s linear infinite;
+}
+
+.particle-5 {
+    width: 90px;
+    height: 90px;
+    background: radial-gradient(circle, rgba(255, 166, 77, 0.17) 0%, transparent 70%);
+    left: 85%;
+    bottom: -110px;
+    animation: particleDrift5 15s linear infinite;
+}
+
+.particle-6 {
+    width: 75px;
+    height: 75px;
+    background: radial-gradient(circle, rgba(216, 180, 255, 0.2) 0%, transparent 70%);
+    left: 20%;
+    bottom: -100px;
+    animation: particleDrift6 12.5s linear infinite;
+}
+
+.particle-7 {
+    width: 85px;
+    height: 85px;
+    background: radial-gradient(circle, rgba(255, 166, 77, 0.19) 0%, transparent 70%);
+    left: 60%;
+    bottom: -105px;
+    animation: particleDrift7 13.5s linear infinite;
+}
+
+.particle-8 {
+    width: 65px;
+    height: 65px;
+    background: radial-gradient(circle, rgba(216, 180, 255, 0.16) 0%, transparent 70%);
+    left: 40%;
+    bottom: -100px;
+    animation: particleDrift8 14.5s linear infinite;
+}
+
+@keyframes particleDrift1 {
+    0% { transform: translateY(0) translateX(0); opacity: 0; }
+    10% { opacity: 0.2; }
+    90% { opacity: 0.2; }
+    100% { transform: translateY(-100vh) translateX(30px); opacity: 0; }
+}
+
+@keyframes particleDrift2 {
+    0% { transform: translateY(0) translateX(0); opacity: 0; }
+    10% { opacity: 0.18; }
+    90% { opacity: 0.18; }
+    100% { transform: translateY(-100vh) translateX(-40px); opacity: 0; }
+}
+
+@keyframes particleDrift3 {
+    0% { transform: translateY(0) translateX(0); opacity: 0; }
+    10% { opacity: 0.15; }
+    90% { opacity: 0.15; }
+    100% { transform: translateY(-100vh) translateX(25px); opacity: 0; }
+}
+
+@keyframes particleDrift4 {
+    0% { transform: translateY(0) translateX(0); opacity: 0; }
+    10% { opacity: 0.22; }
+    90% { opacity: 0.22; }
+    100% { transform: translateY(-100vh) translateX(-35px); opacity: 0; }
+}
+
+@keyframes particleDrift5 {
+    0% { transform: translateY(0) translateX(0); opacity: 0; }
+    10% { opacity: 0.17; }
+    90% { opacity: 0.17; }
+    100% { transform: translateY(-100vh) translateX(20px); opacity: 0; }
+}
+
+@keyframes particleDrift6 {
+    0% { transform: translateY(0) translateX(0); opacity: 0; }
+    10% { opacity: 0.2; }
+    90% { opacity: 0.2; }
+    100% { transform: translateY(-100vh) translateX(-30px); opacity: 0; }
+}
+
+@keyframes particleDrift7 {
+    0% { transform: translateY(0) translateX(0); opacity: 0; }
+    10% { opacity: 0.19; }
+    90% { opacity: 0.19; }
+    100% { transform: translateY(-100vh) translateX(35px); opacity: 0; }
+}
+
+@keyframes particleDrift8 {
+    0% { transform: translateY(0) translateX(0); opacity: 0; }
+    10% { opacity: 0.16; }
+    90% { opacity: 0.16; }
+    100% { transform: translateY(-100vh) translateX(-25px); opacity: 0; }
+}
+
 /* Responsive Design */
 @media (max-width: 1300px) {
     #gameCanvas {
@@ -706,6 +922,19 @@ kbd {
     .mega-banner {
         font-size: clamp(2.2rem, 5vw, 3.2rem);
         padding: 30px 50px;
+    }
+    
+    /* Mobile responsive - adjust branding and live badge */
+    .brand-tag {
+        bottom: 8px;
+        right: 8px;
+        font-size: clamp(0.75rem, 1.5vw, 1rem);
+    }
+    
+    .live-badge {
+        font-size: clamp(0.8rem, 1.5vw, 1rem);
+        top: -30px;
+        right: 5px;
     }
 }
 
